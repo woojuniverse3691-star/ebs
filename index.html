@@ -62,13 +62,13 @@ h1{font-size:20px;margin:4px 0 2px}
 <body>
 <div class="wrap">
   <h1>연계 문학 벼락치기 OX</h1>
-  <p class="note">2027학년도 수능특강·수능완성 문학 작품 전체임. 작품 누르면 정리 펼쳐짐. 별표는 연계 작품 총정리 표 그대로 따름. ★★★ 꼭 보기, ★★ 한 번 보기, ★ 올해 모의평가에 이미 나온 것. 줄거리는 해설 자료와 백과사전 보고 짧게 줄인 거라 교재 원문과 표현 다름. 내용 확인 못 한 10편은 뺌: 한데서 울다, 무명로, 침류대기, 호종상가사면상소, 월곡답가, 내 영혼 술에 섞여, 요일월 순건곤은, 대장부 공 이루고, 규수상사곡, 삼루.</p>
+  <p class="note">2027학년도 수능특강·수능완성 문학 작품 전체임. 작품 누르면 정리 펼쳐짐. 먼저 정리부터 읽고, 확인 문제는 그다음에 풀면 됨. 풀다가 막히면 문제 아래 정리 보면서 풀기 누르면 됨. 별표는 연계 작품 총정리 표 그대로 따름. ★★★ 꼭 보기, ★★ 한 번 보기, ★ 올해 모의평가에 이미 나온 것. 줄거리는 해설 자료와 백과사전 보고 짧게 줄인 거라 교재 원문과 표현 다름. 내용 확인 못 한 10편은 뺌: 한데서 울다, 무명로, 침류대기, 호종상가사면상소, 월곡답가, 내 영혼 술에 섞여, 요일월 순건곤은, 대장부 공 이루고, 규수상사곡, 삼루.</p>
 
   <div id="home">
     <div class="tabs" id="tabs"></div>
     <div id="subs"></div>
     <div class="row">
-      <button class="btn" id="allUnit">이 묶음 전체 섞어 풀기</button>
+      <button class="btn" id="allUnit">다 읽은 뒤 섞어 풀기</button>
       <button class="btn" id="wrongBtn">틀린 문제만 다시</button>
     </div>
   </div>
@@ -85,6 +85,8 @@ h1{font-size:20px;margin:4px 0 2px}
       <div class="fb" id="fb"><div class="v" id="fv"></div><div id="fe"></div></div>
     </div>
     <div class="row"><button class="btn main hide" id="nextBtn">다음 문제</button></div>
+    <button class="back" id="peekBtn">정리 보면서 풀기 ▾</button>
+    <div class="det hide" id="peek" style="border-top:1px solid var(--line);border-radius:14px;margin-top:6px"></div>
   </div>
 
   <div id="result" class="hide">
@@ -689,7 +691,7 @@ function renderHome(){
       <div class="det ${openSub===si?"":"hide"}" id="det${si}"><h3>${esc(D[unit].k)}</h3>
       ${s.who.map(x=>`<div class="who"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}
       ${s.plot?`<h3>줄거리</h3><p>${esc(s.plot)}</p>`:""}${s.theme?`<h3>주제</h3><p>${esc(s.theme)}</p>`:""}
-      <button class="btn main go" data-s="${si}">퀴즈 시작 (${n}문제)</button></div></div>`}).join("");
+      <button class="btn main go" data-s="${si}">다 읽었으면 확인 문제 (${n}문제)</button></div></div>`}).join("");
   document.querySelectorAll(".sub").forEach(el=>el.onclick=()=>{const si=+el.dataset.s;openSub=openSub===si?-1:si;
     document.querySelectorAll(".det").forEach(d=>d.classList.toggle("hide",d.id!=="det"+openSub))});
   document.querySelectorAll(".go").forEach(el=>el.onclick=()=>{const si=+el.dataset.s;start(D[unit].s[si].q.map((q,i)=>({u:unit,s:si,i})),unit+"-"+si)});
@@ -706,6 +708,8 @@ function renderQ(){
   $("qtext").textContent=q[0];
   ["bO","bX"].forEach(b=>{$(b).disabled=false;$(b).classList.remove("pick")});
   $("fb").classList.remove("show");$("nextBtn").classList.add("hide");answered=false;
+  const s=D[it.u].s[it.s];
+  $("peek").innerHTML=`<h3>${esc(s.t)} · ${esc(D[it.u].k)}</h3>`+s.who.map(x=>`<div class="who"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")+(s.plot?`<h3>줄거리</h3><p>${esc(s.plot)}</p>`:"")+(s.theme?`<h3>주제</h3><p>${esc(s.theme)}</p>`:"");
 }
 function answer(pickO){
   if(answered)return;answered=true;
@@ -728,6 +732,7 @@ function finish(){
   $("retryWrong").disabled=!wrongNow.length;
   show("result");
 }
+let peekOn=false;$("peekBtn").onclick=()=>{peekOn=!peekOn;$("peek").classList.toggle("hide",!peekOn);$("peekBtn").textContent=peekOn?"정리 접기 ▴":"정리 보면서 풀기 ▾"};
 $("bO").onclick=()=>answer(true);$("bX").onclick=()=>answer(false);
 $("nextBtn").onclick=()=>{idx++;idx<list.length?renderQ():finish()};
 $("backBtn").onclick=()=>{renderHome();show("home")};
