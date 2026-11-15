@@ -62,7 +62,7 @@ h1{font-size:20px;margin:4px 0 2px}
 <body>
 <div class="wrap">
   <h1>연계 문학 벼락치기 OX</h1>
-  <p class="note">2027학년도 수능특강·수능완성 문학 작품 전체임. 작품 누르면 정리 펼쳐짐. 먼저 정리부터 읽고, 확인 문제는 그다음에 풀면 됨. 풀다가 막히면 문제 아래 정리 보면서 풀기 누르면 됨. 별표는 연계 작품 총정리 표 그대로 따름. ★★★ 꼭 보기, ★★ 한 번 보기, ★ 올해 모의평가에 이미 나온 것. 줄거리는 해설 자료와 백과사전 보고 짧게 줄인 거라 교재 원문과 표현 다름. 내용 확인 못 한 10편은 뺌: 한데서 울다, 무명로, 침류대기, 호종상가사면상소, 월곡답가, 내 영혼 술에 섞여, 요일월 순건곤은, 대장부 공 이루고, 규수상사곡, 삼루.</p>
+  <p class="note">2027학년도 수능특강·수능완성 문학 작품 전체임. 작품 누르면 정리 펼쳐짐. 먼저 정리부터 읽고, 확인 문제는 그다음에 풀면 됨. 풀다가 막히면 문제 아래 정리 보면서 풀기 누르면 됨. 맨 끝 기출 찾기 묶음에 연계 작품이 실제로 나온 평가원 시험 적어 둠. 그 시험지 문학 세트 푸는 게 제일 도움 됨. 별표는 연계 작품 총정리 표 그대로 따름. ★★★ 꼭 보기, ★★ 한 번 보기, ★ 올해 모의평가에 이미 나온 것. 줄거리는 해설 자료와 백과사전 보고 짧게 줄인 거라 교재 원문과 표현 다름. 내용 확인 못 한 10편은 뺌: 한데서 울다, 무명로, 침류대기, 호종상가사면상소, 월곡답가, 내 영혼 술에 섞여, 요일월 순건곤은, 대장부 공 이루고, 규수상사곡, 삼루.</p>
 
   <div id="home">
     <div class="tabs" id="tabs"></div>
@@ -658,6 +658,14 @@ q:[
 ["「선부 자화상」은 자기 모습을 받아들이는 글이다.",1,"자기 얼굴을 그리며 자기를 돌아봐."]
 ]}
 ]}
+,{u:"기출 찾기",k:"작품이 나온 시험",s:[
+{t:"먼저 풀 것 (2013학년도 이후)",tag:"문학 세트만 골라 풀기 · 시험지에서 작품 이름으로 찾기",
+who:[["★★★ 만흥","2021학년도 9월 모의평가"],["★★★ 상춘곡","2020학년도 9월 모의평가"],["만분가 + 옹고집전","2019학년도 6월 모의평가 (한 시험지에 둘 다 있음)"],["★ 규원가","2022학년도 9월 모의평가"],["★★★ 창선감의록","2016학년도 9월 모의평가 B형"],["옥단춘전","2016학년도 9월 모의평가 A형"],["금방울전","2013학년도 수능"]],q:[]},
+{t:"시간 남으면 (옛날 시험)",tag:"문항 수와 모양이 지금과 조금 다름",
+who:[["운영전 + 상춘곡","2011학년도 수능 (한 시험지에 둘 다 있음)"],["면앙정가","2010학년도 수능, 2007학년도 6월 모의평가"],["임진록 + 한씨 연대기","2008학년도 6월 모의평가"],["와사등","2008학년도 수능"],["상춘곡","2008학년도 9월 모의평가"],["적벽가 + 만분가","2007학년도 수능"],["만흥","2007학년도 9월 모의평가"],["징 소리 + 흰 바람벽이 있어","2004학년도 9월 모의평가"],["창선감의록","2003학년도 수능"],["운영전","2017학년도 고1 3월 학력평가"]],q:[]},
+{t:"올해 이미 나온 것",tag:"보내 준 표에 적힌 것 · 수능에 또 나올 가능성은 낮음",
+who:[["금환기봉","2027학년도 9월 모의평가 18~21번"],["속사미인곡","2027학년도 9월 모의평가 32~34번"],["잘 익은 사과","2027학년도 9월 모의평가 22~27번"],["만전춘별사 · 임으란 회양 금성","2027학년도 6월 모의평가 32~34번"],["나룻배 이야기","2027학년도 6월 모의평가 18~21번"],["그 나무","2027학년도 6월 모의평가 22~27번"]],q:[]}
+]}
 ];
 
 const P={"임진록":3,"장풍운전":3,"현몽쌍룡기":3,"창선감의록":3,"금환기봉":1};
@@ -687,11 +695,11 @@ function renderHome(){
     const w=Object.keys(wrong).filter(x=>x.startsWith(k+"-")).length;
     return `<div class="item"><div class="sub" data-s="${si}"><div style="flex:1"><b>${esc(s.t)}</b><em>${esc(s.tag)}</em>
       <div class="bar"><i style="width:${b!=null?Math.round(b/n*100):0}%"></i></div></div>
-      <small>${n}문제${b!=null?` · 최고 ${b}/${n}`:""}${w?` · 오답 ${w}`:""} <span class="arr">▾</span></small></div>
+      <small>${n?n+"문제":""}${b!=null?` · 최고 ${b}/${n}`:""}${w?` · 오답 ${w}`:""} <span class="arr">▾</span></small></div>
       <div class="det ${openSub===si?"":"hide"}" id="det${si}"><h3>${esc(D[unit].k)}</h3>
       ${s.who.map(x=>`<div class="who"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}
       ${s.plot?`<h3>줄거리</h3><p>${esc(s.plot)}</p>`:""}${s.theme?`<h3>주제</h3><p>${esc(s.theme)}</p>`:""}
-      <button class="btn main go" data-s="${si}">다 읽었으면 확인 문제 (${n}문제)</button></div></div>`}).join("");
+      ${n?`<button class="btn main go" data-s="${si}">다 읽었으면 확인 문제 (${n}문제)</button>`:""}</div></div>`}).join("");
   document.querySelectorAll(".sub").forEach(el=>el.onclick=()=>{const si=+el.dataset.s;openSub=openSub===si?-1:si;
     document.querySelectorAll(".det").forEach(d=>d.classList.toggle("hide",d.id!=="det"+openSub))});
   document.querySelectorAll(".go").forEach(el=>el.onclick=()=>{const si=+el.dataset.s;start(D[unit].s[si].q.map((q,i)=>({u:unit,s:si,i})),unit+"-"+si)});
@@ -738,7 +746,7 @@ $("nextBtn").onclick=()=>{idx++;idx<list.length?renderQ():finish()};
 $("backBtn").onclick=()=>{renderHome();show("home")};
 $("toHome").onclick=()=>{renderHome();show("home")};
 $("retryWrong").onclick=()=>start(wrongNow,"x");
-$("allUnit").onclick=()=>{const items=[];D[unit].s.forEach((s,si)=>s.q.forEach((q,i)=>items.push({u:unit,s:si,i})));start(items,"x")};
+$("allUnit").onclick=()=>{const items=[];D[unit].s.forEach((s,si)=>s.q.forEach((q,i)=>items.push({u:unit,s:si,i})));if(items.length)start(items,"x")};
 $("wrongBtn").onclick=()=>{const items=Object.keys(wrong).filter(x=>x.startsWith(unit+"-")).map(x=>{const [u,s,i]=x.split("-").map(Number);return{u,s,i}});if(items.length)start(items,"x")};
 renderHome();
 </script>
